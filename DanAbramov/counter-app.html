@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Redux Counter App</title>
+</head>
+<body>
+
+<h2>App state</h2>
+<div id="app"></div>
+<button id="increase">Increase</button>
+<button id="decrease">Decrease</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.6.0/redux.js"></script>
+
+<script>
+	
+const counter = (state = 0, action) => {
+	switch(action.type){
+		case 'INCREMENT':
+			return state + 1;
+		case 'DECREMENT':
+			return state - 1;
+		default:
+			return state;
+	}
+}
+
+const { createStore } = Redux;
+// var createStore = Redux.createStore;
+// import { createStore } from 'Redux';
+
+const store = createStore(counter);
+console.log(store);
+console.log(store.getState());
+store.dispatch({ type: 'INCREMENT' });
+console.log(store.getState());
+
+//set default
+document.getElementById("app").innerHTML = store.getState();
+
+//subscribe
+store.subscribe(() => {
+	document.getElementById("app").innerHTML = store.getState();
+});
+
+//increase
+var buttonInc = document.getElementById("increase");
+buttonInc.addEventListener('click', () => {
+	store.dispatch({ type: 'INCREMENT' });
+});
+
+//decrease
+var buttonDec = document.getElementById("decrease");
+buttonDec.addEventListener('click', () => {
+	store.dispatch({ type: 'DECREMENT' });
+});
+
+
+</script>
+</body>
+</html>
