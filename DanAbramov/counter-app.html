@@ -35,12 +35,17 @@ console.log(store.getState());
 store.dispatch({ type: 'INCREMENT' });
 console.log(store.getState());
 
+//render method
+const render = () => {
+	document.getElementById("app").innerHTML = store.getState();	
+}
+
 //set default
-document.getElementById("app").innerHTML = store.getState();
+render();
 
 //subscribe
 store.subscribe(() => {
-	document.getElementById("app").innerHTML = store.getState();
+	render();
 });
 
 //increase
