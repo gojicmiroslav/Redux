@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Redux Counter App</title>
+</head>
+<body>
+
+<h2>App state</h2>
+<div id="app"></div>
+<button id="increase">Increase</button>
+<button id="decrease">Decrease</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.6.0/redux.js"></script>
+<script src="https://unpkg.com/react@15/dist/react.js"></script>
+<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+
+<script>
+	
+const counter = (state = 0, action) => {
+	switch(action.type){
+		case 'INCREMENT':
+			return state + 1;
+		case 'DECREMENT':
+			return state - 1;
+		default:
+			return state;
+	}
+}
+
+const { createStore } = Redux;
+
+const store = createStore(counter);
+console.log(store);
+
+const Counter = ({ value, onIncrement, onDecrement }) => {
+	<div>
+		<h1>{ value }</h1>
+		<button onClick={onIncrement}>+</button>
+		<button onClick={onDecrement}>-</button>
+	</script>div>
+}
+
+//render method
+const render = () => {
+	ReactDOM.render(
+		<Counter 
+			value={store.getState()}, 
+			onIncrement={ () =>
+				store.dispatch({
+					type: "INCREMENT"
+				});
+			},
+			onDecrement={() => 
+				store.dispatch({
+					type: "DECREMENT"
+				});
+			} />,
+		documentGetElementById("app"))
+	);
+}
+
+//set default
+render();
+
+//subscribe
+store.subscribe(() => {
+	render();
+});
+
+//increase
+var buttonInc = document.getElementById("increase");
+buttonInc.addEventListener('click', () => {
+	store.dispatch({ type: 'INCREMENT' });
+});
+
+//decrease
+var buttonDec = document.getElementById("decrease");
+buttonDec.addEventListener('click', () => {
+	store.dispatch({ type: 'DECREMENT' });
+});
+
+
+</script>
+</body>
+</html>
